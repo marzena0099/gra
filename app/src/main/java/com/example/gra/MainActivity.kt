@@ -19,6 +19,7 @@ package com.example.gra
 //    }
 //}
 //
+import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
@@ -26,6 +27,8 @@ import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import kotlinx.coroutines.delay
+import java.util.logging.Handler
 import kotlin.random.Random
 
 class MainActivity : AppCompatActivity() {
@@ -46,7 +49,7 @@ class MainActivity : AppCompatActivity() {
         resultText = findViewById(R.id.result_text)
 
         randomNumber = Random.nextInt(1, 101)
-
+    displayResult("$randomNumber")
 
         guessButton.setOnClickListener {
             val userGuess = guessInput.text.toString().toIntOrNull()
@@ -54,7 +57,9 @@ class MainActivity : AppCompatActivity() {
                 attempts++
                 if (userGuess == randomNumber) {
                     displayResult("Gratulacje! Zgadłeś liczbę $randomNumber w $attempts próbach.")
-                    resetGame()
+//                    showWinnerImage()
+//                    resetGame()
+                    handleWin()
                 } else if (userGuess < randomNumber) {
                     displayResult("Za mało! Spróbuj większej liczby.")
 
@@ -91,8 +96,10 @@ class MainActivity : AppCompatActivity() {
         hangmanImageView.setImageResource(drawableId)
     }
 
-
-
+    private fun showWinnerImage() {
+        val winnerImageView = findViewById<ImageView>(R.id.hangman_image_view)
+        winnerImageView.setImageResource(R.drawable.win)
+    }
     private fun displayResult(message: String) {
         resultText.text = message
     }
@@ -105,6 +112,24 @@ class MainActivity : AppCompatActivity() {
         randomNumber = Random.nextInt(1, 101)
         guessInput.text.clear()
         displayResult("")
+        val basicView = findViewById<ImageView>(R.id.hangman_image_view)
+       basicView.setImageResource(R.drawable.wstep)
+
+    }
+
+    private fun handleWin() {
+
+        Toast.makeText(this, "Wygrałeś!", Toast.LENGTH_SHORT).show()
+
+
+        val winnerImageView = findViewById<ImageView>(R.id.hangman_image_view)
+        winnerImageView.setImageResource(R.drawable.win)
+        android.os.Handler().postDelayed({
+            val intent = Intent(this, MainActivity::class.java)
+            startActivity(intent)
+            finish()
+        }, 3000)
+
     }
 }
 

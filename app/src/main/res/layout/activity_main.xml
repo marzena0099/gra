@@ -10,12 +10,15 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hello World!"
+        android:text="@string/zagraj_w_wisielca"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+<!--    <activity android:name=".MainActivity"-->
+<!--        android:windowSoftInputMode="adjustResize"-->
+<!--        tools:ignore="MissingConstraints"/>-->
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -30,13 +33,19 @@
             android:layout_below="@id/result_text"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="16dp"
-            android:src="@drawable/wstep" />
+            android:isScrollContainer="true"
+            android:src="@drawable/wstep"
+            android:contentDescription="@string/t0" />
 
         <EditText
             android:id="@+id/guess_input"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="55dp"
+            android:autofillHints="number"
+            android:background="#F5F5DC"
             android:hint="@string/hint"
+            android:inputType="number"
+            android:textColor="#000000"
             android:visibility="visible" />
 
         <Button
@@ -45,6 +54,8 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/guess_input"
             android:layout_marginTop="16dp"
+            android:checkable="false"
+            android:clickable="false"
             android:text="@string/wyslij" />
 
         <TextView

@@ -11,5 +11,6 @@
         android:layout_height="wrap_content"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/wstep" />
+        app:srcCompat="@drawable/wstep"
+        android:contentDescription="@string/t7" />
 </androidx.constraintlayout.widget.ConstraintLayout>

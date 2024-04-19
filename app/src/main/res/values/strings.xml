@@ -2,4 +2,14 @@
     <string name="app_name">gra</string>
     <string name="hint">Wprowadź liczbę z zakresu 1-100</string>
     <string name="wyslij">Zgadnij</string>
+    <string name="todo">TODO</string>
+    <string name="todo1">TODO</string>
+    <string name="todo3">TODO</string>
+    <string name="t2">TODO</string>
+    <string name="t4">TODO</string>
+    <string name="t5">TODO</string>
+    <string name="t6">TODO</string>
+    <string name="t7">TODO</string>
+    <string name="zagraj_w_wisielca">Zagraj w Wisielca!</string>
+    <string name="t0">TODO</string>
 </resources>
