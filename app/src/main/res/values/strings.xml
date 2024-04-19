@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">gra</string>
+    <string name="hint">Wprowadź liczbę z zakresu 1-100</string>
+    <string name="wyslij">Zgadnij</string>
+</resources>
