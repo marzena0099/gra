@@ -12,4 +12,8 @@
     <string name="t7">TODO</string>
     <string name="zagraj_w_wisielca">Zagraj w Wisielca!</string>
     <string name="t0">TODO</string>
+    <string name="zagraj_ponownie">zagraj ponownie</string>
+    <string name="zako_cz_gr">zakończ grę</string>
+    <string name="pomi_odliczanie">pomiń odliczanie</string>
+    <string name="pomi_odliczanie2">pomiń odliczanie</string>
 </resources>

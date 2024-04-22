@@ -1,26 +1,10 @@
 package com.example.gra
 
-//import android.os.Bundle
-//import androidx.activity.enableEdgeToEdge
-//import androidx.appcompat.app.AppCompatActivity
-//import androidx.core.view.ViewCompat
-//import androidx.core.view.WindowInsetsCompat
-//
-//class MainActivity : AppCompatActivity() {
-//    override fun onCreate(savedInstanceState: Bundle?) {
-//        super.onCreate(savedInstanceState)
-//        enableEdgeToEdge()
-//        setContentView(R.layout.activity_main)
-//        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
-//            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-//            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
-//            insets
-//        }
-//    }
-//}
-//
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
+import android.os.CountDownTimer
+import android.view.View
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageView
@@ -32,13 +16,20 @@ import java.util.logging.Handler
 import kotlin.random.Random
 
 class MainActivity : AppCompatActivity() {
-
+//        android:layout_centerInParent="true"-->
     private lateinit var guessInput: EditText
     private lateinit var guessButton: Button
+    private lateinit var replyButton: Button
+    private lateinit var onPouseButton: Button
+//    private lateinit var cancelGameCountdownButton: Button
+    private lateinit var exitButton: Button
     private lateinit var resultText: TextView
+
 
     private var randomNumber: Int = 0
     private var attempts: Int = 0
+    private var onPouseButtonClicked = false
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -46,10 +37,14 @@ class MainActivity : AppCompatActivity() {
 
         guessInput = findViewById(R.id.guess_input)
         guessButton = findViewById(R.id.guess_button)
+        replyButton = findViewById(R.id.reply_button)
+//        cancelGameCountdownButton = findViewById(R.id.cancelGameCountdownButton_button)
+        onPouseButton = findViewById(R.id.onPouse_button)
+        exitButton = findViewById(R.id.exit_button)
         resultText = findViewById(R.id.result_text)
 
         randomNumber = Random.nextInt(1, 101)
-    displayResult("$randomNumber")
+        displayResult("$randomNumber")
 
         guessButton.setOnClickListener {
             val userGuess = guessInput.text.toString().toIntOrNull()
@@ -57,16 +52,17 @@ class MainActivity : AppCompatActivity() {
                 attempts++
                 if (userGuess == randomNumber) {
                     displayResult("Gratulacje! Zgadłeś liczbę $randomNumber w $attempts próbach.")
-//                    showWinnerImage()
-//                    resetGame()
-                    handleWin()
+                    showWinnerImgage()
+                    endRound()
+//
+
                 } else if (userGuess < randomNumber) {
                     displayResult("Za mało! Spróbuj większej liczby.")
 
                     updateHangmanImage(wrongAttemps = attempts)
                     if (attempts >= 6) {
                         displayResult("Przegrałeś! Prawidłowa liczba to $randomNumber.")
-                        endGame()
+                        endRound()
                     }
                 } else {
                     displayResult("Za dużo! Spróbuj mniejszej liczby.")
@@ -74,7 +70,7 @@ class MainActivity : AppCompatActivity() {
                     updateHangmanImage(wrongAttemps = attempts)
                     if (attempts >= 6) {
                         displayResult("Przegrałeś! Prawidłowa liczba to $randomNumber.")
-                        endGame()
+                        endRound()
                     }
                 }
             } else {
@@ -82,7 +78,8 @@ class MainActivity : AppCompatActivity() {
             }
         }
     }
-    private fun updateHangmanImage(wrongAttemps : Int) {
+
+    private fun updateHangmanImage(wrongAttemps: Int) {
         val hangmanImageView = findViewById<ImageView>(R.id.hangman_image_view)
         val drawableId = when (wrongAttemps) {
             1 -> R.drawable.img_1
@@ -96,41 +93,106 @@ class MainActivity : AppCompatActivity() {
         hangmanImageView.setImageResource(drawableId)
     }
 
-    private fun showWinnerImage() {
-        val winnerImageView = findViewById<ImageView>(R.id.hangman_image_view)
-        winnerImageView.setImageResource(R.drawable.win)
-    }
+    //    private fun showWinnerImage() {
+//        val winnerImageView = findViewById<ImageView>(R.id.hangman_image_view)
+//        winnerImageView.setImageResource(R.drawable.win)
+//    }
     private fun displayResult(message: String) {
         resultText.text = message
     }
-    private fun endGame() {
+
+    private fun endRound() {
         guessButton.isEnabled = false
-    }
-
-    private fun resetGame() {
-        attempts = 0
-        randomNumber = Random.nextInt(1, 101)
-        guessInput.text.clear()
-        displayResult("")
-        val basicView = findViewById<ImageView>(R.id.hangman_image_view)
-       basicView.setImageResource(R.drawable.wstep)
+        replyButton.visibility = View.VISIBLE
+        exitButton.visibility = View.VISIBLE
+        replyButton.setOnClickListener { startGameCountdown() }
+        exitButton.setOnClickListener { finish() }
 
     }
 
-    private fun handleWin() {
+    private var countdownTimer: CountDownTimer? = null
 
-        Toast.makeText(this, "Wygrałeś!", Toast.LENGTH_SHORT).show()
+    private fun startGameCountdown() {
 
+//        winnerImageView.visibility= View.GONE
+        replyButton.visibility = View.GONE
+        guessButton.visibility= View.GONE
+        val countdownTextView = findViewById<TextView>(R.id.countdown_text_view)
+        countdownTextView.visibility = View.VISIBLE // Ustawiamy widoczność TextView na widoczny
+
+        val countDownDuration = 6000L // Czas odliczania w milisekundach (3 sekundy)
+        countdownTimer =
+            object : CountDownTimer(countDownDuration, 1000) { // Odliczanie co 1 sekundę
+                @SuppressLint("SetTextI18n")
+                override fun onTick(millisUntilFinished: Long) {
+                    val secondsLeft =
+                        millisUntilFinished / 1000 // Konwertujemy czas w milisekundach na sekundy
+                    countdownTextView.text = "Gra wyświetli się za $secondsLeft sekund(y)"
+                }
+
+                override fun onFinish() {
+                    countdownTextView.visibility = View.GONE // Ukrywamy TextView po zakończeniu odliczania
+                startGame() // Rozpoczynamy grę
+
+                }
+
+            }.start()
+        onPouseButton.visibility = View.VISIBLE
+
+        onPouseButton.setOnClickListener { cancelGameCountdown() }
+
+
+//
+    }
+     private fun startGame(){
+         if (onPouseButtonClicked==false) {
+//             android.os.Handler().postDelayed({
+                 val intent = Intent(this, MainActivity::class.java)
+                 startActivity(intent)
+                 finish()
+
+//             }, 6000)
+         }
+     }
+
+    private fun showWinnerImgage() {
 
         val winnerImageView = findViewById<ImageView>(R.id.hangman_image_view)
+        winnerImageView.visibility = View.VISIBLE
         winnerImageView.setImageResource(R.drawable.win)
-        android.os.Handler().postDelayed({
-            val intent = Intent(this, MainActivity::class.java)
-            startActivity(intent)
-            finish()
-        }, 3000)
-
     }
+
+    private fun cancelGameCountdown() {
+        countdownTimer?.cancel()
+        val intent = Intent(this, MainActivity::class.java)
+        startActivity(intent)
+        onPouseButtonClicked = true
+
+        // Anulujemy odliczanie
+    }
+
+//    override fun onPause() {
+//        super.onPause()
+//        cancelGameCountdown() // Anulujemy odliczanie, gdy aktywność jest pauzowana
+//    }
+
+
+//    private fun handleWin(text: String) {
+//
+//        Toast.makeText(this, text, Toast.LENGTH_SHORT).show()
+//
+//
+//        val winnerImageView = findViewById<ImageView>(R.id.hangman_image_view)
+//        winnerImageView.setImageResource(R.drawable.win)
+//        android.os.Handler().postDelayed({
+//            val intent = Intent(this, MainActivity::class.java)
+//            startActivity(intent)
+//            finish()
+//
+//        }, 600)
+////
+//
+//    }
 }
 
 
