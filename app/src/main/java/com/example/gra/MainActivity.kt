@@ -113,7 +113,8 @@ class MainActivity : AppCompatActivity() {
     private var countdownTimer: CountDownTimer? = null
 
     private fun startGameCountdown() {
-
+        val winnerImageView = findViewById<ImageView>(R.id.imageView8)
+        winnerImageView.visibility = View.GONE
 //        winnerImageView.visibility= View.GONE
         replyButton.visibility = View.GONE
         guessButton.visibility= View.GONE
@@ -157,8 +158,10 @@ class MainActivity : AppCompatActivity() {
 
     private fun showWinnerImgage() {
 
-        val winnerImageView = findViewById<ImageView>(R.id.hangman_image_view)
+        val winnerImageView = findViewById<ImageView>(R.id.imageView8)
         winnerImageView.visibility = View.VISIBLE
+        val mainImage = findViewById<ImageView>(R.id.hangman_image_view)
+        mainImage.visibility= View.GONE
         winnerImageView.setImageResource(R.drawable.win)
     }
 
