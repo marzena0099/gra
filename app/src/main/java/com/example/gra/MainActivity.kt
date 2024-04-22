@@ -11,17 +11,13 @@ import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import kotlinx.coroutines.delay
-import java.util.logging.Handler
 import kotlin.random.Random
 
 class MainActivity : AppCompatActivity() {
-//        android:layout_centerInParent="true"-->
     private lateinit var guessInput: EditText
     private lateinit var guessButton: Button
     private lateinit var replyButton: Button
     private lateinit var onPouseButton: Button
-//    private lateinit var cancelGameCountdownButton: Button
     private lateinit var exitButton: Button
     private lateinit var resultText: TextView
 
@@ -38,7 +34,6 @@ class MainActivity : AppCompatActivity() {
         guessInput = findViewById(R.id.guess_input)
         guessButton = findViewById(R.id.guess_button)
         replyButton = findViewById(R.id.reply_button)
-//        cancelGameCountdownButton = findViewById(R.id.cancelGameCountdownButton_button)
         onPouseButton = findViewById(R.id.onPouse_button)
         exitButton = findViewById(R.id.exit_button)
         resultText = findViewById(R.id.result_text)
@@ -47,6 +42,8 @@ class MainActivity : AppCompatActivity() {
         displayResult("$randomNumber")
 
         guessButton.setOnClickListener {
+            val invitingText = findViewById<TextView>(R.id.inviting_text)
+            invitingText.visibility= View.GONE
             val userGuess = guessInput.text.toString().toIntOrNull()
             if (userGuess != null) {
                 attempts++
@@ -111,13 +108,12 @@ class MainActivity : AppCompatActivity() {
     private fun startGameCountdown() {
         val winnerImageView = findViewById<ImageView>(R.id.imageView8)
         winnerImageView.visibility = View.GONE
-//        winnerImageView.visibility= View.GONE
         replyButton.visibility = View.GONE
         guessButton.visibility= View.GONE
         val countdownTextView = findViewById<TextView>(R.id.countdown_text_view)
-        countdownTextView.visibility = View.VISIBLE // Ustawiamy widoczność TextView na widoczny
+        countdownTextView.visibility = View.VISIBLE
 
-        val countDownDuration = 6000L // Czas odliczania w milisekundach (3 sekundy)
+        val countDownDuration = 6000L // Czas odliczania w milisekundach
         countdownTimer =
             object : CountDownTimer(countDownDuration, 1000) { // Odliczanie co 1 sekundę
                 @SuppressLint("SetTextI18n")
@@ -128,8 +124,8 @@ class MainActivity : AppCompatActivity() {
                 }
 
                 override fun onFinish() {
-                    countdownTextView.visibility = View.GONE // Ukrywamy TextView po zakończeniu odliczania
-                startGame() // Rozpoczynamy grę
+                    countdownTextView.visibility = View.GONE
+                    startGame()
 
                 }
 
@@ -143,12 +139,10 @@ class MainActivity : AppCompatActivity() {
     }
      private fun startGame(){
          if (onPouseButtonClicked==false) {
-//             android.os.Handler().postDelayed({
                  val intent = Intent(this, MainActivity::class.java)
                  startActivity(intent)
                  finish()
 
-//             }, 6000)
          }
      }
 
@@ -170,28 +164,6 @@ class MainActivity : AppCompatActivity() {
         // Anulujemy odliczanie
     }
 
-//    override fun onPause() {
-//        super.onPause()
-//        cancelGameCountdown() // Anulujemy odliczanie, gdy aktywność jest pauzowana
-//    }
-
-
-//    private fun handleWin(text: String) {
-//
-//        Toast.makeText(this, text, Toast.LENGTH_SHORT).show()
-//
-//
-//        val winnerImageView = findViewById<ImageView>(R.id.hangman_image_view)
-//        winnerImageView.setImageResource(R.drawable.win)
-//        android.os.Handler().postDelayed({
-//            val intent = Intent(this, MainActivity::class.java)
-//            startActivity(intent)
-//            finish()
-//
-//        }, 600)
-////
-//
-//    }
 }
 
 

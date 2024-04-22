@@ -8,10 +8,9 @@
     tools:context=".MainActivity">
 
 
-
-<!--    <activity android:name=".MainActivity"-->
-<!--        android:windowSoftInputMode="adjustResize"-->
-<!--        tools:ignore="MissingConstraints"/>-->
+    <!--    <activity android:name=".MainActivity"-->
+    <!--        android:windowSoftInputMode="adjustResize"-->
+    <!--        tools:ignore="MissingConstraints"/>-->
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -20,11 +19,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/zagraj_w_wisielca"/>
-<!--            app:layout_constraintBottom_toBottomOf="parent"-->
+        <!--            app:layout_constraintBottom_toBottomOf="parent"-->
 <!--            app:layout_constraintEnd_toEndOf="parent"-->
 <!--            app:layout_constraintStart_toStartOf="parent"-->
 <!--            app:layout_constraintTop_toTopOf="parent" />-->
@@ -32,16 +27,25 @@
 
         <!--        android:layout_below="@id/result_text"-->
 
-<!--        <ImageView-->
-<!--            android:id="@+id/imageView8"-->
-<!--            android:visibility="invisible"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_centerHorizontal="true"-->
-<!--            android:layout_marginTop="120dp"-->
-<!--            android:contentDescription="@string/t0"-->
-<!--            android:isScrollContainer="true"-->
-<!--            android:src="@drawable/win" />-->
+        <!--        <ImageView-->
+        <!--            android:id="@+id/imageView8"-->
+        <!--            android:visibility="invisible"-->
+        <!--            android:layout_width="wrap_content"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:layout_centerHorizontal="true"-->
+        <!--            android:layout_marginTop="120dp"-->
+        <!--            android:contentDescription="@string/t0"-->
+        <!--            android:isScrollContainer="true"-->
+        <!--            android:src="@drawable/win" />-->
+
+        <TextView
+            android:id="@+id/inviting_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_marginStart="140dp"
+            android:layout_marginTop="90dp"
+            android:text="@string/zagraj_w_wisielca" />
 
         <ImageView
             android:id="@+id/hangman_image_view"
@@ -85,13 +89,6 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:text="" />
-<!--&lt;!&ndash;        android:layout_below="@id/guess_button"&ndash;&gt;-->
-
-        <!--        android:layout_below="@id/guess_button"-->
-
-
-        <!--        android:layout_below="@id/guess_button"-->
-<!--        android:layout_above="@id/hangman_image_view"-->
 
         <Button
             android:id="@+id/reply_button"
@@ -106,20 +103,6 @@
             android:text="@string/zagraj_ponownie"
             android:visibility="invisible" />
 
-        <!--        <Button-->
-<!--            android:id="@+id/cancelGameCountdownButton_button"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_alignEnd="@+id/reply_button"-->
-<!--            android:layout_alignBottom="@+id/guess_button"-->
-<!--            android:layout_marginEnd="-166dp"-->
-<!--            android:layout_marginBottom="-93dp"-->
-<!--            android:checkable="false"-->
-<!--            android:clickable="false"-->
-<!--            android:text="@string/pomi_odliczanie"-->
-<!--            android:visibility="invisible" />-->
-
-
         <Button
             android:id="@+id/exit_button"
             android:layout_width="wrap_content"
@@ -132,6 +115,7 @@
             android:clickable="false"
             android:text="@string/zako_cz_gr"
             android:visibility="invisible" />
+
 
         <Button
             android:id="@+id/onPouse_button"
@@ -147,8 +131,6 @@
             android:clickable="false"
             android:text="@string/pomi_odliczanie2"
             android:visibility="invisible" />
-
-
 
         <TextView
             android:id="@+id/countdown_text_view"
