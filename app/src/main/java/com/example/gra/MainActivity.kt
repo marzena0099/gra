@@ -93,10 +93,6 @@ class MainActivity : AppCompatActivity() {
         hangmanImageView.setImageResource(drawableId)
     }
 
-    //    private fun showWinnerImage() {
-//        val winnerImageView = findViewById<ImageView>(R.id.hangman_image_view)
-//        winnerImageView.setImageResource(R.drawable.win)
-//    }
     private fun displayResult(message: String) {
         resultText.text = message
     }
@@ -105,8 +101,8 @@ class MainActivity : AppCompatActivity() {
         guessButton.isEnabled = false
         replyButton.visibility = View.VISIBLE
         exitButton.visibility = View.VISIBLE
-        replyButton.setOnClickListener { startGameCountdown() }
         exitButton.setOnClickListener { finish() }
+        replyButton.setOnClickListener { startGameCountdown() }
 
     }
 
